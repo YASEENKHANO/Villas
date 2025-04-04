@@ -16,5 +16,45 @@ namespace GulfVillas.Infrastructure.Data
         }
 
         public DbSet<Villa> Villas { get; set; }
+
+
+        //this method is used for seeding data to database without explicitly adding it in DBMS for now 
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            //   base.OnModelCreating(modelBuilder);
+
+            //this data will be added during migration
+            modelBuilder.Entity<Villa>().HasData(
+                new Villa
+                {
+                    Id = 1,
+                    Name = "Royal Villa",
+                    Description = "Fusce 11 tincidunt  maximusleosedscelerisquemassa    auctor sit   amet.Donecexmauris,hendreritquis   nibh   ac,efficiturfringilla enim.",
+                    ImageURL = "https:/placehold.co/600x400",
+                    Occupancy = 4,
+                    Price = 200,
+                    Sqft = 550,
+                },
+                new Villa
+                {
+                    Id = 2,
+                    Name = "Premium Pool Villa",
+                    Description = "Fusce 11 tinciduntmaximus   leo,   sedscelerisque   massa     auctor sitamet.   Donec  exmauris,    hendrerit quis  nibh      ac,  efficiturfringillaenim.",
+                    ImageURL = "https:/placehold.co/600x401",
+                    Occupancy = 4,
+                    Price = 300,
+                    Sqft = 550,
+                },
+                new Villa
+                {
+                    Id = 3,
+                    Name = "Luxury Pool Villa",
+                    Description = "Fusce 11 tinciduntmaximus   leo,   sedscelerisque   massa     auctor sitamet.   Donec  exmauris,    hendrerit quis  nibh      ac,  efficiturfringillaenim.",
+                    ImageURL = "https:/placehold.co/600x402",
+                    Occupancy = 4,
+                    Price = 400,
+                    Sqft = 750,
+                });
+        }
     }
 }
