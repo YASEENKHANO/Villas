@@ -52,13 +52,48 @@ namespace GulfVillas.Web.Controllers
                 return View();
             }
 
-        
+        }
 
-            
+        public IActionResult Update(int villaId)
+        {
+            Villa? obj= _db.Villas.FirstOrDefault(u => u.Id== villaId);
+
+            //var villalist = _db.Villas.Where(u => u.Price > 50 && u.Occupancy > 50);
+            //var villa = _db.Villas.Where(u => u.Price > 50 && u.Occupancy > 50).FirstOrDefault(u => u.Id == villaId);
+            //Villa? villaa= _db.Find(villaId);
+
+            if (obj == null) {
+
+                return RedirectToAction("Error","Home");
+            }
+
+            return View(obj);
+
 
         }
 
 
+
+        [HttpPost]
+        public IActionResult Update(Villa obj)
+        {
+             
+            if (ModelState.IsValid && obj.Id>0)
+            {
+                _db.Villas.Update(obj);
+                _db.SaveChanges();
+
+                //TempData["success"] = "Villa created successfully";
+                return RedirectToAction("Index");
+
+            }
+            else
+            {
+                // return View(obj);
+                return View();
+            }
+
+        }
 
 
 
