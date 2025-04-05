@@ -21,7 +21,8 @@ namespace GulfVillas.Infrastructure.Data
         //this method is used for seeding data to database without explicitly adding it in DBMS for now 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            //   base.OnModelCreating(modelBuilder);
+            //this will be needed with Identity framework for authentication and authorization
+            // base.OnModelCreating(modelBuilder);
 
             //this data will be added during migration
             modelBuilder.Entity<Villa>().HasData(
