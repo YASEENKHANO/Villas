@@ -1,22 +1,23 @@
 ﻿using GulfVillas.Domain.Entites;
 using GulfVillas.Infrastructure.Data;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 
 namespace GulfVillas.Web.Controllers
 {
-    public class VillaController : Controller
+    public class VillaNumberController : Controller
     {
         private readonly ApplicationDbContext _db;
 
-        public VillaController( ApplicationDbContext db)
+        public VillaNumberController( ApplicationDbContext db)
         {
             _db = db;
         }
 
         public IActionResult Index()
         {
-            var villas = _db.Villas.ToList();
-            return View(villas);
+            var villaNumbers = _db.VillaNumbers.ToList();
+            return View(villaNumbers);
         }
 
         public IActionResult Create()
@@ -25,30 +26,25 @@ namespace GulfVillas.Web.Controllers
         
         }
 
+        
         [HttpPost]
-        public IActionResult Create(Villa obj)
+        public IActionResult Create(VillaNumber obj)
         {
-           
 
-            if (obj.Name == obj.Description) 
-            {
-                
-                ModelState.AddModelError("name", " Description  can not be same as Villa Name");
-            }
-
+            ModelState.Remove("villa");
             if (ModelState.IsValid) 
             {
-                _db.Villas.Add(obj);
+                _db.VillaNumbers.Add(obj);
                 _db.SaveChanges();
 
-                TempData["success"] = "Villa created successfully";
-                return RedirectToAction("Index");
+                TempData["success"] = "Villa Number created successfully";
+                return RedirectToAction("Index","VillaNumber");
 
 
             }
             else
             {
-                TempData["error"] = "Villa not created successfully";
+                TempData["error"] = "Villa Number not created successfully";
                 
                 // return View(obj);
                 return View();
