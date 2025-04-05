@@ -28,6 +28,14 @@ namespace GulfVillas.Web.Controllers
         [HttpPost]
         public IActionResult Create(Villa obj)
         {
+           
+
+            if (obj.Name == obj.Description) 
+            {
+                
+                ModelState.AddModelError("name", " Description  can not be same as Villa Name");
+            }
+
             if (ModelState.IsValid) 
             {
                 _db.Villas.Add(obj);

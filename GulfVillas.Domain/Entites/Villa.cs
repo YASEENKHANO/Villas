@@ -10,11 +10,16 @@ namespace GulfVillas.Domain.Entites
     public class Villa
     {
         public int Id { get; set; }
+        [MaxLength(50)]
         public required string Name { get; set; }
         public string? Description { get; set; }
-        [Display(Name = "Price Per Night")]
+        [Display(Name = "Price per night")]
+        [Range(0,2000)]
+        
         public double Price { get; set; }
         public int Sqft { get; set; }
+
+        [Range(0,10)]
         public int Occupancy  { get; set; }
         [Display(Name = "Image URL")]
         public string? ImageURL { get; set; }
