@@ -65,11 +65,11 @@ namespace GulfVillas.Web.Controllers
 
         
         [HttpPost]
-       // public IActionResult Create(VillaNumber obj)
         public IActionResult Create(VillaNumberVM obj)
         {
 
-            //ModelState.Remove("Villa");
+            //ModelState.Remove("Villa"); //if we want to not validate  
+
             bool villaRoomNumberExist = _db.VillaNumbers.Any(u => u.Villa_Number == obj.VillaNumber.Villa_Number);
 
             if (!villaRoomNumberExist)
@@ -78,14 +78,11 @@ namespace GulfVillas.Web.Controllers
                 if (ModelState.IsValid)
                 {
 
-
-                    //  _db.VillaNumbers.Add(obj);
                     _db.VillaNumbers.Add(obj.VillaNumber);
                     _db.SaveChanges();
 
                     TempData["success"] = "Villa Number created successfully";
                     return RedirectToAction("Index", "VillaNumber");
-
 
                 }
                 else
@@ -93,6 +90,7 @@ namespace GulfVillas.Web.Controllers
                     TempData["error"] = "Villa Number not created successfully";
 
                     // return View(obj);
+
                     return View();
                 }
             }
@@ -110,10 +108,10 @@ namespace GulfVillas.Web.Controllers
 
         }
 
-        //Update Action/Endpoint
+        //Update Get Action/Endpoint
         public IActionResult Update(int villaNumberId)
         {
-           
+
             //getting dropdown list of villas with VillasNumbers
             VillaNumberVM villaNumberVM = new()
             {
@@ -124,6 +122,8 @@ namespace GulfVillas.Web.Controllers
                 }),
                 VillaNumber = _db.VillaNumbers.FirstOrDefault(u => u.Villa_Number == villaNumberId)
             };
+
+
             if (villaNumberVM.VillaNumber is null)
             {
 
@@ -135,10 +135,11 @@ namespace GulfVillas.Web.Controllers
         }
 
 
-
+        //Update Post
         [HttpPost]
         public IActionResult Update(VillaNumberVM villaNumberVM)
         {
+
              if (ModelState.IsValid)
              {
                     _db.VillaNumbers.Update(villaNumberVM.VillaNumber);
@@ -147,14 +148,14 @@ namespace GulfVillas.Web.Controllers
                     TempData["success"] = "Villa Number updated successfully";
                     return RedirectToAction("Index", "VillaNumber");
              }
-               
           
-           
+            //populating the villa list again
             villaNumberVM.VillaList = _db.Villas.ToList().Select(u => new SelectListItem
             {
                 Text = u.Name,
                 Value = u.Id.ToString()
             });
+
             return View(villaNumberVM);
 
         }
@@ -187,7 +188,7 @@ namespace GulfVillas.Web.Controllers
         }
 
 
-
+        //Delete Post
         [HttpPost]
         public IActionResult Delete(VillaNumberVM villaNumberVM)
         {
