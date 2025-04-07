@@ -1,5 +1,4 @@
 ﻿@model VillaNumberVM
-@* @model VillaNumber *@
 
 <div class="w-100 card border-0 p-4">
 
@@ -8,32 +7,21 @@
 		<div class="row">
 
 			<div class="col-12 text-center">
-				<h2 class="text-white py-2">Create New Villa Number</h2>
+				<h2 class="text-white py-2">Update Villa Number</h2>
 			</div>
 		</div>
 	</div>
 
 
 	<div class="card-body border p-4">
-		<form asp-controller="VillaNumber" asp-action="Create" method="post" class="row">
+		<form asp-controller="VillaNumber" asp-action="Update" method="post" class="row">
+			<input asp-for="VillaNumber.Villa_Number" hidden/>
 			<div class="p-3">
 				@* <div asp-validation-summary="ModelOnly"></div>
 			<div asp-validation-summary="All"></div> *@
 				<div class="form-floating col-12 py-2">
 
-					@* <input asp-for="@Model.VillaId" class="form-control border shadow" />
-					<label asp-for="@Model.VillaId" class="m-2"></label>
- *@
-
-					@* For ViewData *@
-					@* <select asp-for="@Model.VillaId" asp-items="@ViewData["VillaList"] as IEnumerable<SelectListItem>" class="form-select border shadow">
-						<option value="">Select Villa</option>
-					</select> *@
-
-					@* For ViewBag *@
-					@* <select asp-for="@Model.VillaId" asp-items="@ViewBag.VillaList" class="form-select border shadow">
-						<option value="">Select Villa</option>
-					</select> *@
+					
 
 					@* For ViewModel *@
 					<select asp-for="VillaNumber.VillaId" asp-items="@Model.VillaList" class="form-select border shadow">
@@ -46,15 +34,10 @@
 				</div>
 				<div class="form-floating col-12 py-2">
 
-					<input asp-for="VillaNumber.Villa_Number" class="form-control border shadow" />
+					<input asp-for="VillaNumber.Villa_Number" readonly class="form-control border shadow" />
 					<label asp-for="VillaNumber.Villa_Number" class="m-2"></label>
-					<span asp-validation-for="VillaNumber.Villa_Number" class="text-danger">
-						@if (TempData["exist"] is not null)
-						{
-							@TempData["exist"]
-						}
-					</span>
-				
+					
+
 				</div>
 
 				<div class="form-floating col-12 py-2">
@@ -68,7 +51,7 @@
 				<div class="row pt-2">
 					<div class="col-6 col-md-3">
 						<button type="submit" class="btn btn-success w-100">
-							<i class="bi bi-check-circle"></i> Create
+							<i class="bi bi-check-circle"></i> Update
 						</button>
 					</div>
 

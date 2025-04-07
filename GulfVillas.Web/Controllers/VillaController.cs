@@ -44,13 +44,10 @@ namespace GulfVillas.Web.Controllers
                 TempData["success"] = "Villa created successfully";
                 return RedirectToAction("Index");
 
-
             }
             else
             {
                 TempData["error"] = "Villa not created successfully";
-                
-                // return View(obj);
                 return View();
             }
 
