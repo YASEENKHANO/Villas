@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 
 namespace GulfVillas.Application.Common.Interfaces
 {
-    public interface IVillaRepository
+    public interface IVillaRepository : IRepository<Villa> 
     {
-        IEnumerable<Villa> GetAll(Expression<Func<Villa,bool>>? filter = null, string? includeProperties= null);
+        //IEnumerable<Villa> GetAll(Expression<Func<Villa,bool>>? filter = null, string? includeProperties= null);
         //explain the above line of code :
         // IEnumerable<Villa>:
 
@@ -35,11 +35,9 @@ namespace GulfVillas.Application.Common.Interfaces
         //If you don't give it a checklist (filter = null), it will just give you all the toy houses.
 
 
-        Villa Get(Expression<Func<Villa, bool>> filter, string? includeProperties = null);
-
-        void Add(Villa entity);
+       
         void Update(Villa entity);
-        void Remove(Villa entity);
+      
 
         void Save();
 
