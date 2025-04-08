@@ -19,7 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\GulfVillas.Domain\GulfVillas.Domain.csproj" />
+    <ProjectReference Include="..\GulfVillas.Application\GulfVillas.Application.csproj" />
   </ItemGroup>
 
 </Project>

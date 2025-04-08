@@ -1,5 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using GulfVillas.Infrastructure.Data;
+using GulfVillas.Application.Common.Interfaces;
+using GulfVillas.Infrastructure.Repository;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,6 +12,8 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 //GetConnectionString is a Helper method which gets our connection string from appsetting.json file. If we change the name of the key there then we have to use another method here which is GetValue
+
+builder.Services.AddScoped<IVillaRepository, VillaRepository>();
 
 var app = builder.Build();
 
