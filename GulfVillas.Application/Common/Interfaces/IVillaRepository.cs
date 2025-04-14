@@ -39,7 +39,7 @@ namespace GulfVillas.Application.Common.Interfaces
         void Update(Villa entity);
       
 
-        void Save();
+      
 
 
     }

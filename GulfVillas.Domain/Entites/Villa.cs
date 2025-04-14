@@ -1,6 +1,9 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,9 +24,17 @@ namespace GulfVillas.Domain.Entites
 
         [Range(0,10)]
         public int Occupancy  { get; set; }
+
+        [NotMapped] //used when we do not want to add this property to Database
+        public IFormFile? Image { get; set; }
+
         [Display(Name = "Image URL")]
         public string? ImageURL { get; set; }
         public DateTime? CreatedDate { get; set; }
         public DateTime? UpdatedDate { get; set; }
+
+        [ValidateNever]
+        public IEnumerable<Amenity> VillaAmenity { get; set; }
+
     }
 }

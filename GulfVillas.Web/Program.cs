@@ -13,7 +13,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 //GetConnectionString is a Helper method which gets our connection string from appsetting.json file. If we change the name of the key there then we have to use another method here which is GetValue
 
-builder.Services.AddScoped<IVillaRepository, VillaRepository>();
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
 var app = builder.Build();
 

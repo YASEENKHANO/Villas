@@ -15,7 +15,7 @@
 
 
 	<div class="card-body border p-4">
-		<form asp-controller="Villa" asp-action="Create" method="post" class="row">
+		<form asp-controller="Villa" asp-action="Create" method="post" class="row" enctype="multipart/form-data">
 		<div class="p-3">
 			@* <div asp-validation-summary="ModelOnly"></div>
 			<div asp-validation-summary="All"></div> *@
@@ -56,7 +56,8 @@
 
 				<div class="form-floating col-12 py-2">
 
-					<input asp-for="@Model.ImageURL" class="form-control border shadow" />
+					<input asp-for="@Model.ImageURL" hidden class="form-control border shadow" />
+					<input asp-for="@Model.Image"  class="form-control border shadow" />
 					<label asp-for="@Model.ImageURL" class="m-2"></label>
 					<span asp-validation-for="ImageURL" class="text-danger"></span>
 				</div>

@@ -9,11 +9,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace GulfVillas.Web.Controllers
 {
-    public class VillaNumberController : Controller
+    public class AmenityController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
 
-        public VillaNumberController( IUnitOfWork unitOfWork)
+        public AmenityController( IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
         }
@@ -22,8 +22,8 @@ namespace GulfVillas.Web.Controllers
         {
             //Include is used to load related data from the database. It is used to specify which related entities should be included in the query results.
             //
-            var villaNumbers = _unitOfWork.VillaNumber.GetAll(includeProperties: "Villa");
-            return View(villaNumbers);
+            var Amenities = _unitOfWork.Amenity.GetAll(includeProperties: "Villa");
+            return View(Amenities);
         }
 
         public IActionResult Create()
@@ -51,7 +51,7 @@ namespace GulfVillas.Web.Controllers
 
             //AFTER Using ViewModel it is simple:
 
-            VillaNumberVM villaNumberVM = new()
+            AmenityVM amenityVM = new()
             {
                 VillaList = _unitOfWork.Villa.GetAll().ToList().Select(u => new SelectListItem
                 {
@@ -60,43 +60,27 @@ namespace GulfVillas.Web.Controllers
                 }),
             };
 
-            return View(villaNumberVM);
+            return View(amenityVM);
         
         }
 
         
         [HttpPost]
-        public IActionResult Create(VillaNumberVM obj)
+        public IActionResult Create(AmenityVM obj)
         {
-
-            //ModelState.Remove("Villa"); //if we want to not validate  
-
-            bool villaRoomNumberExist = _unitOfWork.VillaNumber.Any(u => u.Villa_Number == obj.VillaNumber.Villa_Number);
-
-            if (!villaRoomNumberExist)
-            {
 
                 if (ModelState.IsValid)
                 {
 
-                    _unitOfWork.VillaNumber.Add(obj.VillaNumber);
+                    _unitOfWork.Amenity.Add(obj.Amenity);
                    _unitOfWork.Save();
 
-                    TempData["success"] = "Villa Number created successfully";
-                    return RedirectToAction("Index", "VillaNumber");
+                    TempData["success"] = "Amenity created successfully";
+                    return RedirectToAction("Index", "Amenity");
 
                 }
-                else
-                {
-                    TempData["error"] = "Villa Number not created successfully";
 
-                    // return View(obj);
-
-                    return View();
-                }
-            }
-            TempData["error"] = "Villa Number Already Exist!";
-
+            //Issue here
             //Populating the Villalist again 
             obj.VillaList = _unitOfWork.Villa.GetAll().ToList().Select(u => new SelectListItem
             {
@@ -110,102 +94,102 @@ namespace GulfVillas.Web.Controllers
         }
 
         //Update Get Action/Endpoint
-        public IActionResult Update(int villaNumberId)
+        public IActionResult Update(int amenityId)
         {
 
             //getting dropdown list of villas with VillasNumbers
-            VillaNumberVM villaNumberVM = new()
+            AmenityVM amenityVM = new()
             {
                 VillaList = _unitOfWork.Villa.GetAll().ToList().Select(u => new SelectListItem
                 {
                     Text = u.Name,
                     Value = u.Id.ToString()
                 }),
-                VillaNumber = _unitOfWork.VillaNumber.Get(u => u.Villa_Number == villaNumberId)
+                Amenity = _unitOfWork.Amenity.Get(u => u.Id == amenityId)
             };
 
 
-            if (villaNumberVM.VillaNumber is null)
+            if (amenityVM.Amenity is null)
             {
 
                 return RedirectToAction("Error", "Home");
             }
 
-            return View(villaNumberVM);
+            return View(amenityVM);
 
         }
 
 
         //Update Post
         [HttpPost]
-        public IActionResult Update(VillaNumberVM villaNumberVM)
+        public IActionResult Update(AmenityVM amenityVM)
         {
 
              if (ModelState.IsValid)
              {
-                    _unitOfWork.VillaNumber.Update(villaNumberVM.VillaNumber);
+                    _unitOfWork.Amenity.Update(amenityVM.Amenity);
                     _unitOfWork.Save();
 
-                    TempData["success"] = "Villa Number updated successfully";
-                    return RedirectToAction("Index", "VillaNumber");
+                    TempData["success"] = "Amenity updated successfully";
+                    return RedirectToAction("Index", "Amenity");
              }
           
             //populating the villa list again
-            villaNumberVM.VillaList = _unitOfWork.Villa.GetAll().Select(u => new SelectListItem
+            amenityVM.VillaList = _unitOfWork.Villa.GetAll().Select(u => new SelectListItem
             {
                 Text = u.Name,
                 Value = u.Id.ToString()
             });
 
-            return View(villaNumberVM);
+            return View(amenityVM);
 
         }
 
 
 
-        //Delete
+        // Get Delete
 
-        public IActionResult Delete(int villaNumberId)
+        public IActionResult Delete(int amenityId)
         {
 
             //getting dropdown list of villas with VillasNumbers
-            VillaNumberVM villaNumberVM = new()
+            AmenityVM amenityVM = new()
             {
                 VillaList = _unitOfWork.Villa.GetAll().Select(u => new SelectListItem
                 {
                     Text = u.Name,
                     Value = u.Id.ToString()
                 }),
-                VillaNumber = _unitOfWork.VillaNumber.Get(u => u.Villa_Number == villaNumberId)
+                Amenity = _unitOfWork.Amenity.Get(u => u.Id == amenityId)
             };
-            if (villaNumberVM.VillaNumber is null)
+            if (amenityVM.Amenity is null)
             {
 
                 return RedirectToAction("Error", "Home");
             }
 
-            return View(villaNumberVM);
+            return View(amenityVM);
 
         }
 
 
         //Delete Post
         [HttpPost]
-        public IActionResult Delete(VillaNumberVM villaNumberVM)
+        public IActionResult Delete(AmenityVM amenityVM)
         {
 
-            VillaNumber? objFromDb= _unitOfWork.VillaNumber.Get(u=> u.Villa_Number == villaNumberVM.VillaNumber.Villa_Number);
+            Amenity? objFromDb= _unitOfWork.Amenity.Get(u=> u.Id == amenityVM.Amenity.Id);
 
             if (objFromDb is not null) 
             {
-                _unitOfWork.VillaNumber.Remove(objFromDb);
+                _unitOfWork.Amenity.Remove(objFromDb);
                 _unitOfWork.Save();
 
-                TempData["success"] = "Villa Number deleted successfully";
+                TempData["success"] = "Amenity deleted successfully";
                 return RedirectToAction(nameof(Index));
             }
-            TempData["error"] = "Villa not deleted successfully";
-            return View(villaNumberVM);
+            TempData["error"] = "Amenity not deleted successfully";
+            return View(amenityVM);
             
         }
 

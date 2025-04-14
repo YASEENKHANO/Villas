@@ -16,68 +16,88 @@
 
 	<div class="card-body border p-4">
 		<form asp-controller="Villa" asp-action="Delete" method="post" class="row">
-			<div class="p-3">
-				@* <div asp-validation-summary="ModelOnly"></div>
+			<div class="row w-100">
+				<div class="col-10">
+					<div class="p-3">
+						@* <div asp-validation-summary="ModelOnly"></div>
 			<div asp-validation-summary="All"></div> *@
 
-				<input asp-for="@Model.Id" hidden class="form-control border shadow" />
+						<input asp-for="@Model.Id" hidden class="form-control border shadow" />
 
 
-				<div class="form-floating col-12 py-2">
+						<div class="form-floating col-12 py-2">
 
-					<input asp-for="@Model.Name" disabled class="form-control border shadow" />
-					<label asp-for="@Model.Name" class="m-2"></label>
-				</div>
+							<input asp-for="@Model.Name" disabled class="form-control border shadow" />
+							<label asp-for="@Model.Name" class="m-2"></label>
+						</div>
 
-				<div class="form-floating col-12 py-2">
+						<div class="form-floating col-12 py-2">
 
-					<input asp-for="@Model.Description" disabled class="form-control border shadow" />
-					<label asp-for="@Model.Description" class="m-2"></label>
-				</div>
+							<input asp-for="@Model.Description" disabled class="form-control border shadow" />
+							<label asp-for="@Model.Description" class="m-2"></label>
+						</div>
 
-				<div class="form-floating col-12 py-2">
+						<div class="form-floating col-12 py-2">
 
-					<input asp-for="@Model.Price" disabled class="form-control border shadow" />
-					<label asp-for="@Model.Price" class="m-2"></label>
-				</div>
+							<input asp-for="@Model.Price" disabled class="form-control border shadow" />
+							<label asp-for="@Model.Price" class="m-2"></label>
+						</div>
 
-				<div class="form-floating col-12 py-2">
+						<div class="form-floating col-12 py-2">
 
-					<input asp-for="@Model.Sqft" disabled class="form-control border shadow" />
-					<label asp-for="@Model.Sqft" class="m-2"></label>
-				</div>
+							<input asp-for="@Model.Sqft" disabled class="form-control border shadow" />
+							<label asp-for="@Model.Sqft" class="m-2"></label>
+						</div>
 
-				<div class="form-floating col-12 py-2">
+						<div class="form-floating col-12 py-2">
 
-					<input asp-for="@Model.Occupancy" disabled class="form-control border shadow" />
-					<label asp-for="@Model.Occupancy" class="m-2"></label>
-					<span asp-validation-for="Occupancy" class="text-danger"></span>
-				</div>
+							<input asp-for="@Model.Occupancy" disabled class="form-control border shadow" />
+							<label asp-for="@Model.Occupancy" class="m-2"></label>
+							<span asp-validation-for="Occupancy" class="text-danger"></span>
+						</div>
 
-				<div class="form-floating col-12 py-2">
+						<div class="form-floating col-12 py-2">
 
-					<input asp-for="@Model.ImageURL" disabled class="form-control border shadow" />
-					<label asp-for="@Model.ImageURL" class="m-2"></label>
-				</div>
+							<input asp-for="@Model.ImageURL" disabled class="form-control border shadow" />
+							<label asp-for="@Model.ImageURL" class="m-2"></label>
+						</div>
 
 
-				<div class="row pt-2">
-					<div class="col-6 col-md-3">
-						<button type="submit" class="btn btn-success w-100">
-							<i class="bi bi-check-circle"></i> Delete
-						</button>
+						<div class="row pt-2">
+							<div class="col-6 col-md-3">
+								<button type="submit" class="btn btn-success w-100">
+									<i class="bi bi-check-circle"></i> Delete
+								</button>
+							</div>
+
+							<div class="col-6 col-md-3 ">
+
+								<a asp-controller="Villa" asp-action="Index" class="btn btn-secondary w-100"><i class="bi bi-x-circle"></i> Cancel</a>
+
+							</div>
+						</div>
+
+
 					</div>
 
-					<div class="col-6 col-md-3 ">
-
-						<a asp-controller="Villa" asp-action="Index" class="btn btn-secondary w-100"><i class="bi bi-x-circle"></i> Cancel</a>
-
-					</div>
 				</div>
 
+				
+					<!-- Right side: Image -->
+					<div class="col-2">
 
+						<div class="card border-0">
+							<img src="@Model.ImageURL" width="100%" style="border-radius:5px; border:1px solid #bbb9b9" class="card-img-top" alt="..." />
+
+							<div class="card-body">
+								<input asp-for="@Model.Image" hidden type="file" class="form-control" />
+								
+							</div>
+						</div>
+					</div>
+				
 			</div>
-
+			
 
 		</form>
 	</div>
